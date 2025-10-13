@@ -1,0 +1,2087 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Office Management System</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="user.css">
+  <link rel="stylesheet" href="hotel.css">
+  <link rel="stylesheet" href="groupchart.css">
+  <link rel="stylesheet" href="guide.css">
+  <link rel="stylesheet" href="v.css">
+  <link rel="stylesheet" href="Expense.css">
+</head>
+
+<body>
+  <div class="main-container">
+    <aside class="sidebar">
+      <div style="display: flex; justify-content: center; margin-top: 0px;">
+      </div>
+      <h2>IDEAL-TSM</h2>
+      <hr>
+      <ul>
+        <li onclick="showSection('dashboard')" data-section="dashboard">
+          <span class="material-icons">dashboard</span> Dashboard
+        </li>
+        <li onclick="showSection('userManageUsers')" data-section="userManageUsers">
+          <span class="material-icons">group</span> Manage Users
+        </li>
+        <li onclick="requestPinAndShow('hotelSection')">
+          <span class="material-icons">hotel</span> Manage Hotels
+        </li>
+        <li onclick="requestPinAndShow('carSection')" class="active">
+          <span class="material-icons">directions_car</span> Manage Vehicles
+        </li>
+        <li onclick="requestPinAndShow('guideSection')">
+          <span class="material-icons">emoji_people</span> Manage Guides
+        </li>
+        <li onclick="requestPinAndShow('expenseSection')">
+          <span class="material-icons">receipt_long</span>Manage Entry Fees
+        </li>
+        <li onclick="requestPinAndShow('Letters, Applications & Orders')">
+          <span class="material-icons">assignment</span> Letters, Applications & Orders
+        </li>
+        <li onclick="requestPinAndShow('groupchartSection')">
+          <span class="material-icons">groups</span> Group Chart
+        </li>
+        <li onclick="requestPinAndShow('RefundCancellation')">
+          <span class="material-icons">sync_alt</span>
+          Refund / Cancellation
+        </li>
+        <li onclick="requestPinAndShow('sanagayAccountant')">
+          <span class="material-icons">account_balance</span> Accountant Section
+        </li>
+        <li id="logoutBtn" onclick="requestPinAndShow('Logout')">
+          <span class="material-icons">logout</span> Logout
+        </li>
+      </ul>
+    </aside>
+    <main class="dashboard" style="padding:15px;">
+
+      <!-- DASHBOARD SECTION -->
+      <section id="dashboard" class="section">
+
+        <!-- HEADER -->
+        <div class="dashboard-header"
+          style="display:flex; justify-content:space-between; align-items:center; background:#486b33; color:white; padding:15px; border-radius:8px;">
+          <div class="header-left" style="display:flex; align-items:center;">
+            <img src="C:\Users\DELL\Desktop\management system\assets\avatar.jpg" alt="Profile" class="profile-img"
+              style="width:80px; height:80px; border-radius:50px; margin-right:15px;">
+            <div class="welcome-text" style="line-height:1.4;">
+              <h2 id="greeting" style="margin:0; font-size:18px;">Good Morning, Admin</h2>
+              <p id="quote" style="margin:3px 0 0 0; font-size:13px;">Welcome back to your dashboard. Here's what's
+                happening today.</p>
+            </div>
+          </div>
+          <div class="header-right" style="text-align:right; font-size:13px;">
+            <h3 id="clock" style="margin:0;">12:05:08</h3>
+            <p id="day" style="margin:0;">Thursday</p>
+            <p id="date" style="margin:0;">September 18, 2025</p>
+          </div>
+        </div>
+        <!-- DASHBOARD TABLES -->
+        <div class="dashboard-tables"
+          style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:15px; margin-top:20px;">
+
+          <!-- Groups On Run Today -->
+          <div class="table-section" style="border:1px solid #486b33; border-radius:8px; padding:10px;">
+            <h4 style="margin-bottom:10px; color:#486b33;">
+              <inpu=""> Groups On Run Today (Date)
+            </h4>
+            <table style="width:100%; font-size:13px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:#f0f8f0;">
+                  <th style="padding:5px; border:1px solid #ccc;">File No/Guest Name</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Destination</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Guide (Contact)</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Vehicle</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- Groups Arrive Today -->
+          <div class="table-section" style="border:1px solid #486b33; border-radius:8px; padding:10px;">
+            <h4 style="margin-bottom:10px; color:#486b33;">Groups Arrive Today (Date)</h4>
+            <table style="width:100%; font-size:13px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:#f0f8f0;">
+                  <th style="padding:5px; border:1px solid #ccc;">File No/Guest Name</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Itinerary</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Guide (Contact)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- Arrival from Tomorrow -->
+          <div class="table-section" style="border:1px solid #486b33; border-radius:8px; padding:10px;">
+            <h4 style="margin-bottom:10px; color:#486b33;">Arrival from Tomorrow onwards</h4>
+            <table style="width:100%; font-size:13px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:#f0f8f0;">
+                  <th style="padding:5px; border:1px solid #ccc;">File No/Guest Name</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Itinerary</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Guide (Contact)</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- Documents Status -->
+          <div class="table-section" style="border:1px solid #486b33; border-radius:8px; padding:10px;">
+            <h4 style="margin-bottom:10px; color:#486b33;">Documents Status</h4>
+            <table style="width:100%; font-size:13px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:#f0f8f0;">
+                  <th style="padding:5px; border:1px solid #ccc;">File No</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Travel Documents</th>
+                  <th style="padding:5px; border:1px solid #ccc;">PP Photo</th>
+                </tr>
+              </thead>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Permit Status -->
+          <div class="table-section" style="border:1px solid #486b33; border-radius:8px; padding:10px;">
+            <h4 style="margin-bottom:10px; color:#486b33;">Permit Status</h4>
+            <table style="width:100%; font-size:13px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:#f0f8f0;">
+                  <th style="padding:5px; border:1px solid #ccc;">Pending</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Verified</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Re - Apply</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+          <!-- Guide and Vehicle Status -->
+          <div class="table-section" style="border:1px solid #486b33; border-radius:8px; padding:10px;">
+            <h4 style="margin-bottom:10px; color:#486b33;">Guide and Vehicle Status</h4>
+            <table style="width:100%; font-size:13px; border-collapse:collapse;">
+              <thead>
+                <tr style="background:#f0f8f0;">
+                  <th style="padding:5px; border:1px solid #ccc;">File No</th>
+                  <th style="padding:5px; border:1px solid #ccc;">Guide Vehicle</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+
+        </div>
+
+        <!-- CHART -->
+        <div style="width:90%; max-width:800px; margin:2rem auto;">
+          <canvas id="incomeExpenseChart" style="width:100%; height:300px;"></canvas>
+          <div id="contentArea"></div>
+        </div>
+      </section>
+
+      <!-- MANAGE USERS ACCOUNT -->
+      <section id="userManageUsers" class="section">
+        <div class="dashboard-header">
+          <div class="header-left">
+            <img src="C:\Users\DELL\Desktop\management system\assets\avatar.jpg" alt="Profile" class="profile-img"
+              style="width:80px; height:80px; border-radius:50px; margin-right:15px;">
+            <div class="welcome-text">
+              <h2 id="greeting"></h2>
+              <p id="quote">Welcome back to your dashboard. Here's what's happening to</p>
+            </div>
+          </div>
+          <div class="header-right">
+            <h3 id="clock">12:05:08</h3>
+            <p id="day">Thursday</p>
+            <p id="date">September 18, 2025</p>
+          </div>
+        </div>
+        <hr>
+
+        <!-- Add User Button -->
+        <button id="userAddBtn" class="btn btn-primary">Add New User</button><br>
+
+        <!-- User Form -->
+        <div class="user-form-container" hidden>
+          <div class="user-form-card">
+
+            <!-- User Input Fields -->
+            <div class="user-form-grid">
+              <div class="user-form-group">
+                <label for="userFullName">Full Name <span>*</span></label>
+                <input type="text" id="userFullName" placeholder="Nima Dorji" required>
+              </div>
+              <div class="user-form-group">
+                <label for="userEmail">Email Address <span>*</span></label>
+                <input type="email" id="userEmail" placeholder="email@example.com" required>
+              </div>
+              <div class="user-form-group">
+                <label for="userPhone">Phone Number</label>
+                <input type="tel" id="userPhone" placeholder="+975-XXXXXXX">
+              </div>
+              <div class="user-form-group">
+                <label for="userUsername">Username <span>*</span></label>
+                <input type="text" id="userUsername" placeholder="username" required>
+              </div>
+              <div class="user-form-group">
+                <label for="userPassword">Password <span>*</span></label>
+                <div class="password-wrapper">
+                  <input type="password" id="userPassword" placeholder="Create password" required>
+                  <button type="button" class="toggle-password" id="userTogglePassword"
+                    aria-label="Toggle Password Visibility">
+                    <span class="material-icons">visibility</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Permissions Section -->
+            <div class="permissions">
+              <div class="permissions-header">
+                <h4>Permissions <small>ACCESS PERMISSIONS</small></h4>
+              </div>
+              <div class="select-all">Select All</div>
+              <div class="checkbox-grid">
+                <label><input type="checkbox"> Dashboard</label>
+                <label><input type="checkbox"> Reservations</label>
+                <label><input type="checkbox"> Operations</label>
+                <label><input type="checkbox"> Hotels</label>
+                <label><input type="checkbox"> Vehicles</label>
+                <label><input type="checkbox"> Guides</label>
+                <label><input type="checkbox"> Users</label>
+                <label><input type="checkbox"> Vehicles</label>
+                <label><input type="checkbox"> Guides</label>
+                <label><input type="checkbox"> Users</label>
+              </div>
+            </div>
+
+            <!-- Account Status & Action Buttons -->
+            <div class="user-form-actions">
+              <div class="status-toggle">
+                <label for="userStatusToggle">Account Status:</label>
+                <label class="switch">
+                  <input type="checkbox" id="userStatusToggle" checked>
+                  <span class="slider round"></span>
+                </label>
+                <span id="userStatusText">Active</span>
+              </div>
+              <button class="btn btn-danger" type="button" aria-label="Cancel User Form">
+                <span class="material-icons"></span> Cancel
+              </button>
+              <button class="btn btn-success" id="userSaveBtn" type="button" aria-label="Save User">
+                <span class="material-icons"></span> Save User
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- User Table -->
+        <div class="table-wrapper">
+          <table class="user-table" aria-label="User Accounts Table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="userTableBody">
+              <!-- Dynamic rows will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!--==== MANAGE CAR SECTION ========-->
+      <section id="carSection" class="section">
+        <div class="dashboard-header">
+          <div class="header-left">
+            <img src="C:\Users\DELL\Desktop\management system\assets\avatar.jpg" alt="Profile" class="profile-img"
+              style="width:80px; height:80px; border-radius:50px; margin-right:15px;">
+            <div class="welcome-text">
+              <h2>Good Morning, Admin</h2>
+              <p id="quote">Welcome back to your dashboard. Here's what's happening to</p>
+            </div>
+          </div>
+          <div class="header-right">
+            <h3 id="clock">12:05:08</h3>
+            <p id="day">Thursday</p>
+            <p id="date">September 18, 2025</p>
+          </div>
+        </div>
+        <hr>
+
+        <!-- Search and Add Button Row -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div style="display: flex; gap: 12px;">
+            <input type="text" id="searchCar" placeholder="Search car by driver name or plate no..."
+              style="padding: 10px 14px; font-size: 15px; border-radius: 6px; border: 1.8px solid #ccc; width: 300px;" />
+            <button type="button" id="searchCarBtn" class="carbhty">Search</button>
+          </div>
+          <button id="carBtn" class="carbhty" type="button">Add New Car</button>
+        </div>
+
+        <!-- Car Form -->
+        <form id="carForm" class="car-bht" novalidate>
+          <!-- Basic Info Grid -->
+          <div class="car-grid">
+            <div class="car-group">
+              <label for="carPlate">Car No. / Plate No.</label>
+              <input type="text" id="carPlate" name="carPlate" required autocomplete="off" />
+            </div>
+
+            <div class="car-group">
+              <label for="carType">Car Type</label>
+              <select id="carType" name="carType" required>
+                <option>Car</option>
+                <option>Van</option>
+                <option>Bus</option>
+                <option>SUV</option>
+                <option>Luxury</option>
+              </select>
+            </div>
+
+            <div class="car-group">
+              <label for="carSeat">Seating Capacity</label>
+              <input type="number" id="carSeat" name="carSeat" min="1" autocomplete="off" />
+            </div>
+
+            <div class="car-group">
+              <label for="carColor">Color</label>
+              <input type="text" id="carColor" name="carColor" autocomplete="off" />
+            </div>
+          </div>
+
+          <!-- Next 4 Fields in a Line -->
+          <div class="four-in-line">
+            <div class="car-group">
+              <label for="carDriver">Driver Name</label>
+              <input type="text" id="carDriver" name="carDriver" autocomplete="off" />
+            </div>
+
+            <div class="car-group">
+              <label for="carPhone">Driver Phone</label>
+              <input type="text" id="carPhone" name="carPhone" autocomplete="off" />
+            </div>
+
+            <div class="car-group">
+              <label for="carStatus">Car Status</label>
+              <select id="carStatus" name="carStatus">
+                <option>Available</option>
+                <option>On Trip</option>
+                <option>Under Maintenance</option>
+              </select>
+            </div>
+
+            <div class="car-group">
+              <label for="carRegisteredDate">Registered Date</label>
+              <input type="date" id="carRegisteredDate" name="carRegisteredDate" required />
+            </div>
+          </div>
+
+          <!-- Form Buttons -->
+          <div class="form-buttons">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit" class="save-btn">Save</button>
+          </div>
+        </form>
+
+        <!-- Car Data Table -->
+        <div class="car-table-container">
+          <table class="car-table">
+            <thead>
+              <tr>
+                <th>SI NO</th>
+                <th>Plate No.</th>
+                <th>Type</th>
+                <th>Seats</th>
+                <th>Color</th>
+                <th>Driver</th>
+                <th>Phone</th>
+                <th>Status</th>
+                <th>Date on Tour</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="carTableBody">
+              <!-- Dynamic Rows -->
+            </tbody>
+          </table>
+          <div class="nextandpreviousbht">
+            <button id="prevPageBtn" class="btn btn-outline-secondary">Previous</button>
+            <button id="nextPageBtn" class="btn btn-outline-secondary">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <!--==== MANAGE GUIDE SECTION ======-->
+      <section id="guideSection" class="section">
+        <div class="dashboard-header">
+          <div class="header-left">
+            <img src="C:\Users\DELL\Desktop\management system\assets\avatar.jpg" alt="Profile" class="profile-img"
+              style="width:80px; height:80px; border-radius:50px; margin-right:15px;">
+            <div class="welcome-text">
+              <h2>Good Morning, Admin</h2>
+              <p id="quote">Welcome back to your dashboard. Here's what's happening to</p>
+            </div>
+          </div>
+          <div class="header-right">
+            <h3 id="clock">12:05:08</h3>
+            <p id="day">Thursday</p>
+            <p id="date">September 18, 2025</p>
+          </div>
+        </div>
+        <hr>
+        <!-- Search and Add Button Row -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div style="display: flex; gap: 12px;">
+            <input type="text" id="searchGuide" placeholder="Search guide by name..."
+              style="padding: 10px 14px; font-size: 15px; border-radius: 6px; border: 1.8px solid #ccc; width: 300px;" />
+            <button type="button" id="searchGuideBtn" class="guidebhty">Search</button>
+          </div>
+          <button id="guideBtn" class="guidebhty" type="button">Add New Guide</button>
+        </div>
+        <form id="guideForm" class="guide-bht" novalidate>
+          <!-- Other guide info fields (first 4) stay in the existing grid -->
+          <div class="guide-grid">
+            <div class="guide-group">
+              <label for="guideName">Guide Name</label>
+              <input type="text" id="guideName" name="guideName" required autocomplete="off" />
+            </div>
+
+            <div class="guide-group">
+              <label for="guideSpecialize">Specialize</label>
+              <select id="guideSpecialize" name="guideSpecialize">
+                <option>Culture</option>
+                <option>Trekking</option>
+                <option>Bird Watching</option>
+                <option>Flora & Fauna</option>
+                <option>Photography</option>
+              </select>
+            </div>
+
+            <div class="guide-group">
+              <label for="guideGender">Gender</label>
+              <select id="guideGender" name="guideGender" required>
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="guide-group">
+              <label for="guideLanguage">Languages Spoken</label>
+              <input type="text" id="guideLanguage" name="guideLanguage" autocomplete="off" />
+            </div>
+          </div>
+
+          <!-- Wrap these 4 fields in one line -->
+          <div class="four-in-line">
+            <div class="guide-group">
+              <label for="guideLicense">Guide License No.</label>
+              <input type="text" id="guideLicense" name="guideLicense" autocomplete="off" />
+            </div>
+            <div class="guide-group">
+              <label for="guidePhone">Phone Number</label>
+              <input type="text" id="guidePhone" name="guidePhone" autocomplete="off" />
+            </div>
+
+            <div class="guide-group">
+              <label for="guideEmail">Mail Address</label>
+              <input type="email" id="guideEmail" name="guideEmail" autocomplete="off" />
+            </div>
+
+            <div class="guide-group">
+              <label for="guideAdress">Present Adress</label>
+              <input type="Text" id="Present Adress" name="Present Adress" autocomplete="off" />
+            </div>
+
+            <div class="guide-group">
+              <label for="guidebank">Bank Name</label>
+              <input type="email" id="guideBank" name="guideBank" autocomplete="off" />
+            </div>
+
+            <div class="guide-group">
+              <label for="guideAccount">Account Name</label>
+              <input type="text" id="guideAccount" name="Account Name" autocomplete="off" />
+            </div>
+            <div class="guide-group">
+              <label for="guideAccountNumber">Account Number</label>
+              <input type="Text" id="Account Number" name="Account" autocomplete="off" />
+            </div>
+          </div>
+          <!-- Form Buttons -->
+          <div class="form-buttons">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit" class="save-btn">Save</button>
+          </div>
+        </form>
+        <!-- Guide Data Table -->
+        <div class="guide-table-container">
+          <table class="guide-table">
+            <thead>
+              <tr>
+                <th>SI NO</th>
+                <th>Name</th>
+                <th>Specialize</th>
+                <th>Gender</th>
+                <th>Language</th>
+                <th>License</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="guideTableBody">
+              <!-- Dynamic Rows -->
+            </tbody>
+          </table>
+          <div class="nextandpreviousbht">
+            <button id="prevPageBtn" class="btn btn-outline-secondary">Previous</button>
+            <button id="nextPageBtn" class="btn btn-outline-secondary">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <!--===== HOTEL MANAGE SECTION ====== -->
+      <section id="hotelSection" class="section">
+        <div class="dashboard-header">
+          <div class="header-left">
+            <img src="C:\Users\DELL\Desktop\management system\assets\avatar.jpg" alt="Profile" class="profile-img"
+              style="width:80px; height:80px; border-radius:50px; margin-right:15px;">
+            <div class="welcome-text">
+              <h2>Good Morning, Admin</h2>
+              <p id="quote">Welcome back to your dashboard. Here's what's happening to</p>
+            </div>
+          </div>
+          <div class="header-right">
+            <h3 id="clock">12:05:08</h3>
+            <p id="day">Thursday</p>
+            <p id="date">September 18, 2025</p>
+          </div>
+        </div>
+        <hr>
+
+        <!-- Search and Add Button -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div style="display: flex; gap: 12px;">
+            <input type="text" id="searchHotel" placeholder="Search hotel by name..."
+              style="padding: 10px 14px; font-size: 15px; border-radius: 6px; border: 1.8px solid #ccc; width: 300px;height:40px;" />
+            <button type="button" id="searchHotelBtn" class="guidebhty">Search</button>
+          </div>
+          <button id="hotelBtn" class="guidebhty" type="button">Add New Hotel</button>
+        </div>
+        <hr>
+        <!-- Hotel Form -->
+        <form id="hotelForm" class="hotel-form" novalidate>
+          <!-- Basic Info -->
+          <div class="form-row">
+            <div class="form-group"><label>Hotel Name</label><input type="text" /></div>
+            <div class="form-group">
+              <label for="location">Location</label>
+              <select id="location" name="location" class="form-control">
+                <option value="thimphu">Thimphu</option>
+                <option value="paro">Paro</option>
+                <option value="punakha">Punakha</option>
+                <option value="wangdue">Wangdue</option>
+                <option value="bhumthang">Bhumthang</option>
+                <option value="trongsa">Trongsa</option>
+                <option value="haa">Haa</option>
+                <option value="trashigang">Trashigang</option>
+                <option value="mongar">Mongar</option>
+                <option value="phuntsholing">Phuntsholing</option>
+                <option value="chukha">Chukha</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>TCB Rating</label>
+              <select>
+                <option value="">-- Select Rating --</option>
+                <option value="1-star">1 Star</option>
+                <option value="2-star">2 Star</option>
+                <option value="3-star">3 Star</option>
+                <option value="4-star">4 Star</option>
+                <option value="5-star">5 Star</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Our Categorization</label>
+              <select>
+                <option value="">-- Select Rating --</option>
+                <option value="1-star">Economy</option>
+                <option value="2-star">Standard</option>
+                <option value="3-star">Superior</option>
+                <option value="4-star">Classy</option>
+                <option value="5-star">Splendid</option>
+                <option value="6-star">Luxury</option>
+                <option value="7-star">Elite</option>
+                <option value="8-star">Premium</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Department Email & Phone -->
+          <div class="form-row">
+            <div class="form-group" id="deptEmailContainer">
+              <label><b>Department & Email</b></label>
+              <div class="qty-room-wrapper dept-wrapper">
+                <input type="text" placeholder="Department Name" />
+                <input type="email" placeholder="Email" />
+                <button type="button" class="remove-room-btn">×</button>
+                <button type="button" class="add-room-btn">+</button>
+              </div>
+            </div>
+
+            <div class="form-group" id="deptPhoneContainer">
+              <label><b>Department & Phone</b></label>
+              <div class="qty-room-wrapper dept-wrapper">
+                <input type="text" placeholder="Department Name" />
+                <input type="text" placeholder="Phone" />
+                <button type="button" class="remove-room-btn">×</button>
+                <button type="button" class="add-room-btn">+</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Room Types -->
+          <label><b>Room Types & Qty</b></label>
+          <div id="roomTypesContainer">
+            <div class="qty-room-wrapper">
+              <input type="text" placeholder="Room Type" />
+              <input type="number" value="0" min="0" />
+              <button type="button" class="remove-room-btn">×</button>
+              <button type="button" class="add-room-btn" title="Add Room Type">+</button>
+            </div>
+          </div>
+          <hr />
+
+          <!-- Rate Section -->
+          <div class="rate-section">
+            <div class="rate-controls">
+              <div class="form-group">
+                <label>Tourist Type</label>
+                <select id="touristType">
+                  <option value="">Select</option>
+                  <option value="Regional">Regional</option>
+                  <option value="International">International</option>
+                  <option value="InternationalandRegional">International & Regional</option>
+                  <option value="Asian">Asian</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+              <div class="form-group"><label>Rate Valid From</label><input type="date" id="rateFrom" /></div>
+              <div class="form-group"><label>To</label><input type="date" id="rateTo" /></div>
+              <div class="form-group"><label>Remarks</label><input type="text" id="remarks" /></div>
+              <div class="form-group">
+                <label>Currency</label>
+                <select id="currency">
+                  <option value="">Select</option>
+                  <option value="BTN">BTN</option>
+                  <option value="USD">USD</option>
+                </select>
+              </div>
+              <button class="btn btn-add" id="addTableBtn" type="button">Add</button>
+            </div>
+            <div id="rateTablesContainer"></div>
+          </div>
+
+          <!-- Form Buttons -->
+          <div class="form-buttons" style="margin-top:20px;">
+            <button type="button" class="btn search-btn">Cancel</button>
+            <button type="submit" class="btn add-btn">Save</button>
+          </div>
+        </form>
+
+        <!-- Hotel Data Table -->
+        <div class="car-table-container">
+          <table class="car-table">
+            <thead>
+              <tr>
+                <th>SI NO</th>
+                <th>Hotel Name</th>
+                <th>Location</th>
+                <th>TCB Rating</th>
+                <th>phones</th>
+                <th>Emails</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="hotelTableBody"></tbody>
+          </table>
+        </div>
+        <div class="nextandpreviousbht">
+          <button id="prevHotelPageBtn" class="btn search-btn">Previous</button>
+          <button id="nextHotelPageBtn" class="btn search-btn">Next</button>
+        </div>
+      </section>
+
+      <!--==== MANAGE EXPENSE SECTION ======-->
+      <section id="expenseSection" class="section">
+        <div class="dashboard-header">
+          <div class="header-left">
+            <img src="C:\Users\DELL\Desktop\management system\assets\avatar.jpg" alt="Profile" class="profile-img"
+              style="width:80px; height:80px; border-radius:50px; margin-right:15px;">
+            <div class="welcome-text">
+              <h2>Good Morning, Admin</h2>
+              <p id="quote">Welcome back to your dashboard. Here’s your expense records</p>
+            </div>
+          </div>
+          <div class="header-right">
+            <h3 id="clock">12:05:08</h3>
+            <p id="day">Thursday</p>
+            <p id="date">September 18, 2025</p>
+          </div>
+        </div>
+        <hr>
+
+        <!-- Search and Add Button Row -->
+        <div class="expense-controls">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div style="display: flex; gap: 12px;">
+              <input type="text" id="searchHotel" placeholder="Search hotel by name..."
+                style="padding: 10px 14px; font-size: 15px; border-radius: 6px; border:transparent; width: 300px;height:40px;" />
+              <button type="button" id="searchHotelBtn" class="guidebhty">Search</button>
+            </div>
+          </div>
+          <button id="expenseBtn" class="expense-btn" type="button">Add New Expense</button>
+        </div>
+
+        <!-- Expense Form -->
+        <form id="expenseForm" class="expense-form" novalidate>
+          <div class="expense-grid">
+            <div class="expense-group">
+              <label for="expenseName">Temples & Monuments</label>
+              <input type="text" id="Name" name="Name" required />
+            </div>
+
+            <div class="expense-group">
+              <label for="expensePlace/Location">Place/Location</label>
+              <select id="expensePlace/Location" name="expensePlace/Location" required>
+                <option>Paro</option>
+                <option>Thimphu</option>
+                <option>Punakha</option>
+                <option>Phobjikha</option>
+                <option>Mongar</option>
+              </select>
+            </div>
+
+            <div class="expense-group">
+              <label for="expenseVisiting Hours">Visiting Hours</label>
+              <input type="Text" id="expenseVisiting Hours" name="expenseVisiting Hours" required />
+            </div>
+
+            <div class="expense-group">
+              <label for="expenseIntl'Tourists">Intl'Tourists</label>
+              <input type="Text" id="expenseIntl'Tourists" name="expenseIntl'Tourists" required />
+            </div>
+
+            <div class="expense-group">
+              <label for="expenseRegl'Tourists">Regl'Tourists</label>
+              <input type="Text" id="expenseRegl'Tourists" name="expenseRegl'Tourists" required />
+            </div>
+
+            <div class="expense-group">
+              <label for="expenseRemarks">Remarks</label>
+              <input type="text" id="expenseRemarks" name="expenseRemarks" />
+            </div>
+          </div>
+
+          <!-- Form Buttons -->
+          <div class="form-buttons">
+            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="submit" class="save-btn">Save</button>
+          </div>
+        </form>
+
+        <!-- Expense Data Table -->
+        <div class="expense-table-container">
+          <table class="expense-table">
+            <thead>
+              <tr>
+                <th>SI NO</th>
+                <th>Temples & Monuments</th>
+                <th>Place/Location</th>
+                <th>Visiting Hours</th>
+                <th>Intl'Tourists</th>
+                <th>Regl'Tourists</th>
+                <th>Remarks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="expenseTableBody">
+            </tbody>
+          </table>
+        </div>
+        <div class="nextandpreviousbht">
+          <button id="prevExpensePageBtn">Previous</button>
+          <button id="nextExpensePageBtn">Next</button>
+          <button id="shareExpenseBtn" class="expense-btn" type="button">Share PDF</button>
+        </div>
+      </section>
+
+      <!-- ===== MANAGE GROUP CHART ===== -->
+      <section id="groupchartSection" class="section">
+        <div class="dashboard-header">
+          <div class="header-left">
+            <img src="C:\Users\DELL\Desktop\management system\assets\avatar.jpg" alt="Profile" class="profile-img"
+              style="width:80px; height:80px; border-radius:50px; margin-right:15px;">
+            <div class="welcome-text">
+              <h2>Good Morning, Admin</h2>
+              <p id="groupchart-quote">Welcome back to your dashboard. Here's what's happening today</p>
+            </div>
+          </div>
+          <div class="header-right">
+            <h3 id="groupchart-clock">12:05:08</h3>
+            <p id="groupchart-day">Thursday</p>
+            <p id="groupchart-date">September 18, 2025</p>
+          </div>
+        </div>
+        <hr>
+        <!-- Search and Add Button -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+          <div style="display: flex; gap: 12px;">
+            <input type="text" id="searchHotel" placeholder="Search hotel by name..."
+              style="padding: 10px 14px; font-size: 15px; border-radius: 6px; border: 1.8px solid #ccc; width: 300px;height:40px;" />
+            <button type="button" id="searchHotelBtn" class="guidebhty">Search</button>
+          </div>
+          <button id="addgroupbht" class="addgroupbht" type="button">Add new File/Group</button>
+        </div>
+
+        <!-- Add New Group Chart Form -->
+        <div id="addGroupchartForm" class="filegroup-form">
+          <!-- Top Fields -->
+          <div class="form-topfields">
+            <div class="form-group2">
+              <label>File No</label>
+              <input type="text" id="groupchart-fileNo">
+            </div>
+            <div class="form-group2">
+              <label>Group Name</label>
+              <input type="text" id="groupchart-groupName">
+            </div>
+            <div class="form-group2">
+              <label>Company</label>
+              <input type="text" id="groupchart-company">
+            </div>
+            <div class="form-group2">
+              <label>Date of Confirmation</label>
+              <input type="date" id="groupchart-confirmationDate">
+            </div>
+          </div>
+
+          <!-- Pax & Arrival/Departure Details -->
+          <div class="form-middlefields">
+            <div class="card">
+              <div class="card-header">No of Pax / Nationality</div>
+              <table class="uniform-table" id="Data-Details">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Rgnl'</th>
+                    <th>Intl'</th>
+                    <th>Othr'</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Adults 13 </td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                  </tr>
+                  <tr>
+                    <td>Kids (5–12)</td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                  </tr>
+                  <tr>
+                    <td>Kids (5)</td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                    <td><input type="number" value="0" style="width:60px; text-align:center;"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- Arrival Details -->
+            <div class="card">
+              <div class="card-header">Arrival Details</div>
+              <table class="uniform-table">
+                <tbody>
+                  <tr>
+                    <td>Date:</td>
+                    <td><input type="date" id="arrivalDate"></td>
+                  </tr>
+                  <tr>
+                    <td>Time:</td>
+                    <td><input type="time"></td>
+                  </tr>
+                  <tr>
+                    <td>Arrival Station:</td>
+                    <td>
+                      <input type="text" id="arrivalStation">
+                    </td>
+                  <tr>
+                    <td>Flight/Train/Hotel:</td>
+                    <td><input type="text"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Departure Details -->
+            <div class="card">
+              <div class="card-header">Departure Details</div>
+              <table class="uniform-table">
+                <tbody>
+                  <tr>
+                    <td>Date:</td>
+                    <td><input type="date" id="departureDate"></td>
+                  </tr>
+                  <tr>
+                    <td>Time:</td>
+                    <td><input type="time"></td>
+                  </tr>
+                  <tr>
+                    <td>Dep-Station:</td>
+                    <td><input type="text" id="departureStation"></td>
+                  </tr>
+                  </tr>
+                  <tr>
+                    <td>Flight/Train/Hotel:</td>
+                    <td><input type="text"></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <hr>
+
+          <!-- ===== Action Buttons For Services(Tabs) ===== -->
+          <div class="form-actions2">
+            <button class="tab-button active" data-tab="serviceForm">Service Inclusion</button>
+            <button class="tab-button" data-tab="hotelForm5">Hotel Details</button>
+            <button class="tab-button" data-tab="itineraryForm">Itinerary Details</button>
+            <button class="tab-button" data-tab="guideForm">Guide Details</button>
+            <button class="tab-button" data-tab="vehicleFormV4">Vehicle Details</button>
+            <button class="tab-button" data-tab="permitForm">Travelers / Documents</button>
+            <button class="tab-button" data-tab="voucherForm">Service Voucher & Documents</button>
+          </div>
+          <div id="serviceForm" class="tab-content">
+            <!-- 1 Accommodations -->
+            <div style="background:#f5f5f5; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <label><b>1.Accommodations</b></label>
+              <select style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; margin-top:6px;">
+                <option>In the mentioned hotels/ Facilities in EP Basis</option>
+                <option>In the mentioned hotels/ Facilities in CP Basis</option>
+                <option>In the mentioned hotels/ Facilities in MAP Basis</option>
+                <option>In the mentioned hotels/ Facilities in AP Basis</option>
+                <option>Not Applicable</option>
+              </select>
+            </div>
+
+            <!-- 2 Lunches -->
+            <div style="background:#f5f5f5; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <label><b>2.Lunches</b></label>
+              <select style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; margin-top:6px;">
+                <option>In other Tourist Restaurants</option>
+                <option>As specified</option>
+                <option>Not Applicable</option>
+              </select>
+            </div>
+
+            <!-- 3 Guide -->
+            <div style="background:#f5f5f5; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <label><b>3.Service of certified Guide(s) (Within Bhutan)</b></label>
+              <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:8px; align-items:center;">
+
+                <!-- Language -->
+                <div style="flex:1; min-width:200px;">
+                  <select style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                    <option>Select Language</option>
+                    <option>English Speaking</option>
+                    <option>Chinese Speaking</option>
+                    <option>French Speaking</option>
+                    <option>German Speaking</option>
+                    <option>Italian Speaking</option>
+                    <option>Spanish Speaking</option>
+                    <option>Russian Speaking</option>
+                  </select>
+                </div>
+
+                <!-- Specialty -->
+                <div style="flex:1; min-width:200px;">
+                  <select style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                    <option>Select Specialty</option>
+                    <option>Cultural Guide(s)</option>
+                    <option>Trekking Guide(s)</option>
+                    <option>Bird Watching Guide(s)</option>
+                    <option>Nature Guide(s)</option>
+                  </select>
+                </div>
+
+                <!-- Qty Input -->
+                <input type="number" min="1" placeholder="Qty"
+                  style="width:100px; padding:8px; border:1px solid #ccc; border-radius:4px;">
+
+                <!-- Buttons -->
+                <div style="display:flex; gap:10px;">
+                  <button type="button"
+                    style="padding:6px 10px; background:#3ba029; color:#fff; border:none; border-radius:4px; cursor:pointer;">+</button>
+                  <button type="button"
+                    style="padding:6px 10px; background:#e74c3c; color:#fff; border:none; border-radius:4px; cursor:pointer;">-</button>
+                </div>
+              </div>
+            </div>
+            <!-- 4 Journey Start/End -->
+            <div style="background:#f5f5f5; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <label><b>4.Your Journey with us begins at & Our Services shall end with a graceful departure to
+                </b></label>
+              <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:8px;">
+                <select style="flex:1; min-width:220px; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                  <option>Select Start Point</option>
+                  <option>Paro International Airport</option>
+                  <option>Phuentsholing (Bhutan Gate)</option>
+                  <option>Samdrupjongkhar (Bhutan Gate)</option>
+                  <option>Guwahati</option>
+                  <option>IXB Airport</option>
+                </select>
+                <select style="flex:1; min-width:220px; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                  <option>Select End Point</option>
+                  <option>Paro International Airport</option>
+                  <option>Phuentsholing (Bhutan Gate)</option>
+                  <option>Samdrupjongkhar (Bhutan Gate)</option>
+                  <option>Guwahati</option>
+                  <option>IXB Airport</option>
+                </select>
+                <div style="display:flex; gap:10px;">
+                  <button type="button"
+                    style="padding:6px 10px; background:#3ba029; color:#fff; border:none; border-radius:4px; cursor:pointer;">+</button>
+                  <button type="button"
+                    style="padding:6px 10px; background:#e74c3c; color:#fff; border:none; border-radius:4px; cursor:pointer;">-</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transfers Within Bhutan -->
+            <div style="background:#f5f5f5; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <label><b>5.All transfers (Within Bhutan) in Private Vehicles as follows:</b></label>
+              <div style="display:flex; gap:12px; margin-top:8px;">
+                <select style="flex:2; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                  <option>Select Vehicle Type</option>
+                  <option>SUV (Creta/ Breeza/ Seltos/ Ertiga/ Grand Vitara/ Santafee/ Similar)</option>
+                  <option>SUV (Prado/ Sorento/ Similar), Hyundai H1/ Toyota Hiace/ Force Urbania</option>
+                  <option>Coaster Bus / Force Urbania (Large)</option>
+                </select>
+                <input type="number" min="1" placeholder="Qty"
+                  style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px; max-width:120px;">
+                <div style="display:flex; gap:10px;">
+                  <button type="button"
+                    style="padding:6px 10px; background:#3ba029; color:#fff; border:none; border-radius:4px; cursor:pointer;">+</button>
+                  <button type="button"
+                    style="padding:6px 10px; background:#e74c3c; color:#fff; border:none; border-radius:4px; cursor:pointer;">-</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transfers Within India -->
+            <div style="background:#f5f5f5; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <label><b>6.Transfers (In India) in Private Vehicles as follows: </b></label>
+              <div style="display:flex; gap:12px; margin-top:8px;">
+                <select style="flex:2; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                  <option>Select Vehicle Type</option>
+                  <option>Indian Innova</option>
+                  <option>Indian Innova Crysta</option>
+                  <option>Wagon R/ Desire/ Breeza/ Similar</option>
+                  <option>Tempo Traveler (17 Seater)</option>
+                  <option>Tempo Traveler (13 Seater)</option>
+                </select>
+                <div style="display:flex; gap:12px;">
+                  <select style="flex:2; padding:8px; border:1px solid #ccc; border-radius:4px;">
+                    <option>Select Sector</option>
+                    <option>IXB/NJP/Siliguri - Pling and Vice Versa</option>
+                    <option>Gangtok - Pling and Vice Versa</option>
+                    <option>Kalimpong - Pling and Vice Versa</option>
+                    <option>Darjeeling - Pling and Vice Versa</option>
+                  </select>
+                  <input type="number" min="1" placeholder="Qty"
+                    style="flex:1; padding:8px; border:1px solid #ccc; border-radius:4px; max-width:120px;">
+                  <div style="display:flex; gap:10px;">
+                    <button type="button"
+                      style="padding:6px 10px; background:#3ba029; color:#fff; border:none; border-radius:4px; cursor:pointer;">+</button>
+                    <button type="button"
+                      style="padding:6px 10px; background:#e74c3c; color:#fff; border:none; border-radius:4px; cursor:pointer;">-</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Government Fees & Services -->
+            <div style="background:#f5f5f5; padding:12px; border-radius:6px; margin-bottom:12px;">
+              <label><b>8. Government Fees & Services</b></label>
+              <div style="display:flex; flex-wrap:wrap; gap:15px; margin-top:8px;">
+
+                <!-- Checkbox Option -->
+                <label style="flex:1; min-width:200px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <div
+                    onclick="let cb=this.querySelector('input'); cb.checked=!cb.checked; let tick=this.querySelector('span'); cb.style.backgroundColor=cb.checked?'#3ba029':'transparent'; tick.innerText=cb.checked?'✓':'';"
+                    style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                    <input type="checkbox"
+                      style="appearance:none; -webkit-appearance:none; width:20px; height:20px; border-radius:50%; border:2px solid #3ba029; cursor:pointer; background-color:transparent; position:relative;">
+                    <span
+                      style="position:absolute; width:20px; height:20px; display:flex; align-items:center; justify-content:center; color:white; font-size:14px; font-weight:bold;"></span>
+                    <span style="user-select:none;">Government SDF For Regional</span>
+                  </div>
+                </label>
+
+                <label style="flex:1; min-width:200px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <div
+                    onclick="let cb=this.querySelector('input'); cb.checked=!cb.checked; let tick=this.querySelector('span'); cb.style.backgroundColor=cb.checked?'#3ba029':'transparent'; tick.innerText=cb.checked?'✓':'';"
+                    style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                    <input type="checkbox"
+                      style="appearance:none; -webkit-appearance:none; width:20px; height:20px; border-radius:50%; border:2px solid #3ba029; cursor:pointer; background-color:transparent; position:relative;">
+                    <span
+                      style="position:absolute; width:20px; height:20px; display:flex; align-items:center; justify-content:center; color:white; font-size:14px; font-weight:bold;"></span>
+                    <span style="user-select:none;">Visa Fee</span>
+                  </div>
+                </label>
+
+                <label style="flex:1; min-width:200px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <div
+                    onclick="let cb=this.querySelector('input'); cb.checked=!cb.checked; let tick=this.querySelector('span'); cb.style.backgroundColor=cb.checked?'#3ba029':'transparent'; tick.innerText=cb.checked?'✓':'';"
+                    style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                    <input type="checkbox"
+                      style="appearance:none; -webkit-appearance:none; width:20px; height:20px; border-radius:50%; border:2px solid #3ba029; cursor:pointer; background-color:transparent; position:relative;">
+                    <span
+                      style="position:absolute; width:20px; height:20px; display:flex; align-items:center; justify-content:center; color:white; font-size:14px; font-weight:bold;"></span>
+                    <span style="user-select:none;">Government SDF/International</span>
+                  </div>
+                </label>
+
+                <label style="flex:1; min-width:200px; display:flex; align-items:center; gap:6px; cursor:pointer;">
+                  <div
+                    onclick="let cb=this.querySelector('input'); cb.checked=!cb.checked; let tick=this.querySelector('span'); cb.style.backgroundColor=cb.checked?'#3ba029':'transparent'; tick.innerText=cb.checked?'✓':'';"
+                    style="display:flex; align-items:center; gap:6px; cursor:pointer;">
+                    <input type="checkbox"
+                      style="appearance:none; -webkit-appearance:none; width:20px; height:20px; border-radius:50%; border:2px solid #3ba029; cursor:pointer; background-color:transparent; position:relative;">
+                    <span
+                      style="position:absolute; width:20px; height:20px; display:flex; align-items:center; justify-content:center; color:white; font-size:14px; font-weight:bold;"></span>
+                    <span style="user-select:none;">Government SDF For Other</span>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          <!--=======SERVICES OF HOTEL SECTION======-->
+          <div id="hotelForm5" class="tab-content">
+            <div class="table-wrapper7">
+              <table id="hotelDetailsTable5">
+                <thead>
+                  <tr>
+                    <th colspan="2">Hotel Info</th>
+                    <th colspan="4">Stay Details</th>
+                    <th colspan="3">Room Details</th>
+                    <th colspan="2">Pricing</th>
+                  </tr>
+                  <tr>
+                    <th>Name</th>
+                    <th>DOT Category</th>
+                    <th>Check In</th>
+                    <th>Check Out</th>
+                    <th>No of Nights</th>
+                    <th>Meal Plan</th>
+                    <th>Room Type</th>
+                    <th>Room Category</th>
+                    <th>Qty</th>
+                    <th>Rates</th>
+                    <th>Remarks</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><input type="text" name="hotelName" value="Hotel Druk" /></td>
+                    <td><input type="text" name="dotCategory" value="3 Star" /></td>
+                    <td><input type="date" name="checkIn" value="2025-09-01" /></td>
+                    <td><input type="date" name="checkOut" value="2025-09-05" /></td>
+                    <td><input type="number" name="nights" value="4" min="1" /></td>
+                    <td>
+                      <select name="mealPlan">
+                        <option>MAP</option>
+                        <option>CP</option>
+                        <option>AP</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select name="roomType" class="blue">
+                        <option>Single Room</option>
+                        <option>Double Room</option>
+                        <option>Twin Room</option>
+                        <option>Triple Room</option>
+                        <option>Quad Room</option>
+                        <option>Deluxe Room</option>
+                        <option>Superior Room</option>
+                        <option class="red">FOC</option>
+                      </select>
+                    </td>
+                    <td>
+                      <select name="roomCategory">
+                        <option>Standard Room</option>
+                        <option>Deluxe Room</option>
+                        <option class="red">Suite Room</option>
+                      </select>
+                    </td>
+                    <td><input type="number" name="qty" value="2" min="1" /></td>
+                    <td>
+                      <select name="rate">
+                        <option>Contract Rate</option>
+                        <option>Special Rate</option>
+                        <option>FOC</option>
+                      </select>
+                    </td>
+                    <td>
+                      <div class="remarks-actions">
+                        <input type="text" name="remarks" value="-" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--=======SERVICES OF ITINERARY SECTION======-->
+          <div id="itineraryForm" class="tab-content">
+            <div class="itinerary-section">
+              <button onclick="generateItinerary()">Get</button>
+              <p style="margin-left: 340px;color: #ffffff; font-size: 20px;">Retrieve Complete Itinerary Details</p>
+              <p></p>
+            </div>
+
+            <div class="table-wrapper">
+              <table id="itineraryTable">
+                <thead>
+                  <tr>
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th colspan="3">Itinerary</th>
+                  </tr>
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th>From</th>
+                    <th>Day Trip</th>
+                    <th>To</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!--=======SERVICES OF GUIDE SECTION======------->
+        <div id="guideForm" class="tab-content">
+          <div class="guide-header">
+            <p>Allocate Guide</p>
+            <button type="button" class="add-btn">+</button>
+          </div>
+          <!-- Guide Form -->
+          <form id="allocateGuideForm" class="guide-form">
+            <div class="guide-entry">
+              <input type="text" value="1" placeholder="Sl" class="sl-input">
+              <input type="text" placeholder="Guide Name (Contact)" class="flex-2">
+              <input type="date" name="from" aria-label="From Date" title="From Date" class="date-input">
+              <input type="date" name="to" aria-label="To Date" title="To Date" class="date-input">
+              <input type="number" placeholder="Rate / Day" class="flex-1">
+              <input type="number" placeholder="Extra Paymt" class="flex-1">
+              <input type="text" placeholder="Remarks" class="flex-1">
+              <button type="button" class="action-btn">IMP</button>
+              <button type="button" class="action-btn">DSA</button>
+              <button type="button" class="remove-btn">-</button>
+            </div>
+          </form>
+        </div>
+        <!--=======SERVICES OF VEHICLE SECTION (v4)======-->
+        <div id="vehicleFormV4" class="tab-content">
+          <div class="vech4-header">
+            <p>Vehicle Details</p>
+            <button type="button" class="add-btn-v4">+</button>
+          </div>
+
+          <!-- Vehicle Form -->
+          <form id="allocateVech4Form" class="vech4-form">
+            <div class="vech4-entry" style="display:flex; align-items:center; gap:6px; flex-wrap:nowrap;">
+              <input type="text" value="1" placeholder="Sl" class="sl-input-v4">
+              <input type="text" placeholder="Driver Name (Contact) | Veh Type" class="flex-2-v4">
+              <input type="date" name="from" aria-label="From Date" title="From Date" class="date-input-v4">
+              <input type="date" name="to" aria-label="To Date" title="To Date" class="date-input-v4">
+
+              <!-- Rate + Dropdown combined inline -->
+              <div style="display:flex; align-items:center; gap:2px; width: 84px;">
+                <select class="rate-type-v4">
+                  <option value="km">Km</option>
+                  <option value="perday">Per Day</option>
+                  <option value="lumsum">Lumsum</option>
+                </select>
+              </div>
+
+              <input type="number" placeholder="Rate" class="flex-1-v4">
+              <input type="number" placeholder="Additnl' Amt" class="flex-1-v4">
+              <input type="text" placeholder="Remarks" class="flex-1-v4">
+              <button type="button" class="action-btn-v4">ADV</button>
+              <button type="button" class="action-btn-v4">DSA</button>
+              <button type="button" class="remove-btn-v4">-</button>
+            </div>
+          </form>
+        </div>
+        <!-- ======= PERMIT / VISA & DOCUMENTS SECTION ======= -->
+        <div id="permitForm" class="tab-content"
+          style="padding:20px; background:#fff; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.06);">
+          <h3 style="text-align:center; font-weight:bold; margin-bottom:10px;">
+            Permit / Visa & Travel Documents
+            <hr>
+          </h3>
+
+          <div style="margin-top:10px; margin-bottom:10px;">
+            <button type="button" class="clone-row-btn"
+              style="background:#2e5939; color:#fff; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;"
+              title="Auto Generate Traveler Rows">&#x2795; </button>
+          </div>
+
+          <div style="max-height:600px; overflow:auto;">
+            <table id="travelerTable" border="1"
+              style="min-width:1400px; width:100%; border-collapse:collapse; font-size:14px;">
+              <thead>
+                <tr style="background:#d8e6c5;">
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Name</th>
+                  <th>Nationality</th>
+                  <th>Travel Document</th>
+                  <th>Document No</th>
+                  <th>Expiry Date</th>
+                  <th>Validity</th>
+                  <th>Date of Birth</th>
+                  <th>Age</th>
+                  <th>Permit/Visa Type</th>
+                  <th>App ID No</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="row-num">1</td>
+                  <td>
+                    <select name="title" style="width:100%; padding:4px; border:1px solid #ccc; border-radius:4px;">
+                      <option value="">Select</option>
+                      <option>TL/Mr</option>
+                      <option>TL/Ms</option>
+                      <option>Mr</option>
+                      <option>Ms</option>
+                      <option>Dr</option>
+                    </select>
+                  </td>
+                  <td><input type="text" name="name" placeholder="Full Name"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;"></td>
+                  <td>
+                    <select name="nationality"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;">
+                      <option value="">Select</option>
+                      <option>Regional</option>
+                      <option>International</option>
+                      <option>Others</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select name="travelDocument"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;">
+                      <option value="">Select</option>
+                      <option>Voter ID</option>
+                      <option>Passport</option>
+                      <option>Birth Certificate</option>
+                    </select>
+                  </td>
+                  <td><input type="text" name="documentNo"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;"></td>
+                  <td><input type="date" name="expiryDate"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;"></td>
+                  <td><input type="text" name="validity" readonly placeholder="Auto"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px; background:#f9f9f9;">
+                  </td>
+                  <td><input type="date" name="dob"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;"></td>
+                  <td><input type="text" name="age" readonly placeholder="Auto"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px; background:#f9f9f9;">
+                  </td>
+                  <td>
+                    <select name="visaType" style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;">
+                      <option value="">Select</option>
+                      <option>Online Permit/Visa</option>
+                      <option>Online Permit/Visa - Fast Track</option>
+                      <option>On Arrival</option>
+                      <option>Not Applicable</option>
+                    </select>
+                  </td>
+                  <td><input type="text" name="appID" placeholder="If Online Permit"
+                      style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;"></td>
+                  <td>
+                    <select name="status" style="width:100%; padding:6px; border:1px solid #ccc; border-radius:4px;">
+                      <option value="">Select</option>
+                      <option>Pending</option>
+                      <option>Verified</option>
+                      <option>Re-Apply</option>
+                      <option>Approved</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!--======= SERVICE VOUCHER SECTION =======-->
+        <div id="voucherForm" class="tab-content">
+          <div
+            style="display:flex; border:1px solid #c3d8b4; background:linear-gradient(135deg, #eef6ea, #dfeede); border-radius:10px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.1);">
+            <!-- Left Side Menu -->
+            <div
+              style="width:150px; background:linear-gradient(180deg, #b8d6a2, #a4ca8e); border-right:1px solid #8caf80; padding:10px;">
+              <div style="margin-bottom:8px;">
+                <button class="sideBtn active" data-content="placard"
+                  style="width:100%; background:#3e8e41; border:none; color:white; padding:10px; border-radius:6px; font-weight:600; cursor:pointer; box-shadow:0 2px 4px rgba(0,0,0,0.1);">Placard</button>
+              </div>
+
+              <div style="margin-bottom:6px;">
+                <button class="sideBtn" data-content="welcome"
+                  style="width:100%; background:#4e9f50; border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">Welcome
+                  Letter</button>
+              </div>
+
+              <div style="margin-bottom:6px;">
+                <button class="sideBtn" data-content="feedback"
+                  style="width:100%; background:#4e9f50; border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">Feedback
+                  Form</button>
+              </div>
+
+              <div style="margin-bottom:6px;">
+                <button class="sideBtn" data-content="voucher"
+                  style="width:100%; background:#4e9f50; border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">Service
+                  Details</button>
+              </div>
+
+              <div style="margin-bottom:6px;">
+                <button class="sideBtn" data-content="checklist"
+                  style="width:100%; background:#4e9f50; border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">Rooming
+                  List</button>
+              </div>
+
+              <div style="margin-bottom:6px;">
+                <button class="sideBtn" data-content="guide"
+                  style="width:100%; background:#4e9f50; border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">Guide
+                  DSA</button>
+              </div>
+
+              <div>
+                <button class="sideBtn" data-content="vehicle"
+                  style="width:100%; background:#4e9f50; border:none; color:white; padding:10px; border-radius:6px; cursor:pointer;">Vehicle
+                  Hire Form</button>
+              </div>
+            </div>
+
+            <!-- Right Side Content -->
+            <div id="sideContent"
+              style="flex:1; padding:20px; background:#fdfefb; border-left:1px solid #cde0bf; border-radius:0 10px 10px 0;">
+              <!--======= PLACARD SECTION =======-->
+              <div class="content-section" id="placard"
+                style="display:block; padding:15px; font-family:'Segoe UI', Tahoma, sans-serif;">
+                <div style="background:#ffffff; border-radius:6px; padding:20px;">
+                  <div style="text-align:center; margin-bottom:20px;">
+                    <h2 style="color:#000000; font-size:24px; margin:0;">Welcome to Bhutan</h2>
+                  </div>
+
+                  <div style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+                    <div style="width:100%; max-width:400px;">
+                      <select id="nameSelect"
+                        style="width:100%; padding:8px; border:1px solid #ffffff; border-radius:6px; margin-top:5px; background:#ffffff; color:#000000; text-align:center;">
+                        <option value="">-- Choose Name --</option>
+                      </select>
+                    </div>
+
+                    <div style="text-align:center;">
+                      <label style="font-weight:bold;font-size: 55px; color:#000000;">X</label>
+                      <div style="font-size:32px; color:#ffffff; margin-top:10px;">
+                        <input type="number" min="1" placeholder="25"
+                          style="width:80px; font-size:28px; text-align:center; padding:5px; border:1px solid #ffffff; border-radius:6px; background:#ffffff; color:#000000;">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div style="text-align:right; margin-top:20px;">
+                    <button type="button"
+                      style="background:#c8c0c0; color:#2e5939; padding:10px 20px; border:none; border-radius:6px; cursor:pointer;">
+                      Print
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Welcome Letter -->
+              <div class="content-section" id="welcome"
+                style="display:none; position:relative; font-family:Arial, sans-serif; color:#333; line-height:1.6; padding:40px; max-width:800px; margin:auto; border:1px solid #ccc; background:white; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+                <center>
+                  <h3 style="color:#2e5939; margin-bottom:0;">Welcome To Bhutan</h3>
+                </center>
+                <div style="display:flex; flex-wrap:wrap; margin-top:10px;">
+                  <!-- Decorative Botanical Divider -->
+
+                  <svg width="100%" height="40" viewBox="0 0 600 40" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 20 Q100 0 200 20 T400 20 Q500 40 590 20" stroke="#2e5939" stroke-width="3"
+                      fill="none" />
+                    <circle cx="300" cy="20" r="4" fill="#2e5939" />
+                    <path d="M290 10 Q295 5 300 10 Q305 5 310 10" stroke="#2e5939" stroke-width="1.8" fill="none" />
+                  </svg>
+                  <!-- Emergency Contacts -->
+                  <div style="max-width:890px; padding-right:30px;">
+                    <p style="margin:0;"><strong>Emergency Contacts</strong></p>
+                    <p style="margin:5px 0;">
+                      Guide: Mr. Tshering Dorji A <strong>17450954</strong><br>
+                      Office <strong>17660471 / 17660474</strong><br>
+                      Reservation (Bina Gurung)<strong>17547678</strong><br>
+                      Operations (Nidup Dema) <strong>17468078</strong><br><br>
+                    </p>
+                  </div>
+
+                  <!-- Welcome Message -->
+                  <div style="text-align:justify;">
+                    <p>Dear Guest,</p>
+                    <p>We are extremely glad to have you in Bhutan as our guest and we will endeavor to make your
+                      holiday a pleasant and an enjoyable one.</p>
+                    <p>If you experience any inconvenience during your stay in Bhutan, please do let us know and we
+                      shall do our best possible to ensure that you have a memorable holiday and a life time’s
+                      experience in Bhutan.</p>
+                    <p>You may call your Guide at the number mentioned above. If your guide is not able to solve the
+                      issues please do not hesitate to contact the office or you may also contact us at the above
+                      numbers.</p>
+                    <p>We would also appreciate if you could spare your valuable time to evaluate our services in the
+                      evaluation form provided.</p><br>
+                    <p><strong>Wish you all a very memorable stay in Bhutan!</strong></p><br>
+                    <p>Thank you.<br><em>Bhutan Office & Team</em></p>
+                  </div>
+                  <!-- Action Buttons -->
+                  <div style="margin-top:20px; text-align:right; width:100%;">
+                    <button class="action-btn" onclick="printWelcomeLetter()"
+                      style="margin-right:10px; padding:8px 16px; background-color:#2e5939; color:white; border:none; border-radius:4px; cursor:pointer;">
+                      Print / Save PDF
+                    </button>
+                    <button class="action-btn" onclick="shareWelcomeLetter()"
+                      style="padding:8px 16px; background-color:#4a7c59; color:white; border:none; border-radius:4px; cursor:pointer;">
+                      Share
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Feedback Form -->
+              <div class="content-section" id="feedback"
+                style="display:none; font-family:Arial, sans-serif; max-width:800px; margin:auto; border:1px solid #ccc; padding:20px;">
+                <h3 style="color:#2e5939; text-align:center;">Travel Feedback Form</h3>
+
+                <!-- Guest Info -->
+                <table style="width:100%; margin-bottom:20px; border-collapse:collapse;">
+                  <tr>
+                    <td style="padding:8px;"><strong>Group/Guest:</strong> MR SATISH KUMAR GOYAL x 19 PAX</td>
+                    <td style="padding:8px;"><strong>File No:</strong> RIB 2034051</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:8px;"><strong>Guide:</strong> Mr. Tshering Dorji A (17360954)</td>
+                    <td style="padding:8px;"><strong>Driver/Crew:</strong>Mr. Tshering Dorji A (17360954)</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="padding:8px;"><strong>Travel Date:</strong> 27th Aug to 1st Sep 2025 (Paro to
+                      Paro)</td>
+                  </tr>
+                </table>
+
+                <!-- Feedback Table -->
+                <table style="width:100%; border-collapse:collapse; border:1px solid #999;">
+                  <thead>
+                    <tr style="background-color:#f0f0f0;">
+                      <th style="border:1px solid #999; padding:8px;">Category</th>
+                      <th style="border:1px solid #999; padding:8px;">Excellent</th>
+                      <th style="border:1px solid #999; padding:8px;">Satisfying Adequate</th>
+                      <th style="border:1px solid #999; padding:8px;">Poor</th>
+                      <th style="border:1px solid #999; padding:8px;">Remarks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td style="border:1px solid #999; padding:8px;">Tour/Trek Arrangements</td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="tour"
+                          value="Excellent"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="tour"
+                          value="Adequate"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="tour"
+                          value="Poor"></td>
+                      <td style="border:1px solid #999;"><input type="text" name="tour_remarks" style="width:100%;">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #999; padding:8px;">Guide</td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="guide"
+                          value="Excellent"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="guide"
+                          value="Adequate"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="guide"
+                          value="Poor"></td>
+                      <td style="border:1px solid #999;"><input type="text" name="guide_remarks" style="width:100%;">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #999; padding:8px;">Driver/Crew</td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="driver"
+                          value="Excellent"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="driver"
+                          value="Adequate"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="driver"
+                          value="Poor"></td>
+                      <td style="border:1px solid #999;"><input type="text" name="driver_remarks" style="width:100%;">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #999; padding:8px;">Accommodation</td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="accommodation"
+                          value="Excellent"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="accommodation"
+                          value="Adequate"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="accommodation"
+                          value="Poor"></td>
+                      <td style="border:1px solid #999;"><input type="text" name="accommodation_remarks"
+                          style="width:100%;"></td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #999; padding:8px;">Meals</td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="meals"
+                          value="Excellent"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="meals"
+                          value="Adequate"></td>
+                      <td style="border:1px solid #999; text-align:center;"><input type="radio" name="meals"
+                          value="Poor"></td>
+                      <td style="border:1px solid #999;"><input type="text" name="meals_remarks" style="width:100%;">
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- General Comments -->
+                <div style="margin-top:20px;">
+                  <label for="comments"><strong>General Comments:</strong></label><br>
+                  <textarea id="comments" name="comments" rows="4" style="width:100%;"></textarea>
+                </div>
+                <p style="margin-top:20px; text-align:center; font-style:italic;">Thank you for traveling with us.</p>
+              </div>
+
+              <!-- ===== SERVICE DETAILS SECTION  ===== -->
+              <div class="content-section" id="voucher"
+                style="display:none; font-family:'Times New Roman', Times, serif; background:#fff; padding:25px; border-radius:12px; box-shadow:0 2px 10px rgba(0,0,0,0.08); color:#333; max-width:1000px; margin:auto;">
+                <h2
+                  style="color:#2e5939; font-size:22px; border-bottom:2px solid #b6d7a8; padding-bottom:6px; margin-bottom:20px;">
+                  <center> Service Details</center>
+                </h2>
+                <div style="display:flex; gap:20px; align-items:flex-end; flex-wrap:wrap;">
+                  <div style="flex:1; min-width:200px; display:flex; flex-direction:column;">
+                    <label style="font-weight:600; margin-bottom:4px;">File No</label>
+                    <input type="" placeholder="Auto"
+                      style="padding:8px 10px; border:1px solid #ccc; border-radius:6px;">
+                  </div>
+
+                  <div style="flex:1; min-width:200px; display:flex; flex-direction:column;">
+                    <label style="font-weight:600; margin-bottom:4px;">Group Name</label>
+                    <input type="" placeholder="Auto"
+                      style="padding:8px 10px; border:1px solid #ccc; border-radius:6px;">
+                  </div>
+
+                  <div style="flex:1; min-width:200px; display:flex; flex-direction:column;">
+                    <label style="font-weight:600; margin-bottom:4px;">Company</label>
+                    <input type="" placeholder="Auto"
+                      style="padding:8px 10px; border:1px solid #ccc; border-radius:6px;">
+                  </div>
+                </div>
+                <!-- === PASSENGER, ARRIVAL & DEPARTURE DETAILS=== -->
+                <div
+                  style="display:flex; gap:20px; flex-wrap:wrap; align-items:flex-start; margin-top:20px; font-family:sans-serif;">
+                  <div style="flex:1; min-width:320px;">
+                    <h3 style="color:#2e5939; font-size:18px; margin-bottom:10px; font-weight:600;">I.Passenger Details
+                    </h3>
+                    <div class="form-middlefields">
+                      <div class="card">
+                        <div class="card-header">No of Pax / Nationality</div>
+                        <table class="uniform-table" id="Display-Details">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Rgnl'</th>
+                              <th>Intl'</th>
+                              <th>Othr'</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>Adults 13 </td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                            </tr>
+                            <tr>
+                              <td>Kids (5–12)</td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                            </tr>
+                            <tr>
+                              <td>Kids (5)</td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                            </tr>
+                            <tr>
+                              <td><b>Total</b></td>
+                              <td>0</td>
+                              <td>0</td>
+                              <td>0</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- Arrival Details -->
+                      <div class="card">
+                        <div class="card-header">Arrival Details</div>
+                        <table class="uniform-table">
+                          <tbody>
+                            <tr>
+                              <td>Date:</td>
+                              <td><input type="date" id="arrivalDate"></td>
+                            </tr>
+                            <tr>
+                              <td>Time:</td>
+                              <td><input type="time"></td>
+                            </tr>
+                            <tr>
+                              <td>Arrival Station:</td>
+                              <td>
+                                <input type="text" id="arrivalStation">
+                              </td>
+                            <tr>
+                              <td>Flight/Train/Hotel:</td>
+                              <td><input type="text"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <!-- Departure Details -->
+                      <div class="card">
+                        <div class="card-header">Departure Details</div>
+                        <table class="uniform-table">
+                          <tbody>
+                            <tr>
+                              <td>Date:</td>
+                              <td><input type="date" id="departureDate"></td>
+                            </tr>
+                            <tr>
+                              <td>Time:</td>
+                              <td><input type="time"></td>
+                            </tr>
+                            <tr>
+                              <td>Dep-Station:</td>
+                              <td><input type="text" id="departureStation"></td>
+                            </tr>
+                            </tr>
+                            <tr>
+                              <td>Flight/Train/Hotel:</td>
+                              <td><input type="text"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!-- === COST INCLUSIONS === -->
+                    <div style="margin-top:20px;">
+                      <h3 style="color:#2e5939; font-size:18px;">II.Cost Inclusions</h3>
+                      <ol id="inclusionList" style="padding-left:20px; margin-top:10px;">
+                        <li><input type="text" placeholder="Add inclusion detail"
+                            style="width:90%; padding:8px; border:transparent; border-radius:6px;"></li>
+                      </ol>
+                    </div>
+                    <!-- ===== ACCOMMODATIONS AND TRAVEL ITINERARY (DISPLAY ONLY) ===== -->
+                    <div style="margin-top:30px; font-family:Inter, Arial, sans-serif;">
+                      <h3 style="color:#2e5939; font-size:18px; margin-bottom:8px;">
+                        III.Accommodations and Travel Itinerary
+                      </h3>
+
+                      <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; background:transparent; font-size:14px;">
+                          <thead>
+                            <tr style="background:transparent; color:#2e5939; text-align:left;">
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Date</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Itinerary</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Hotel</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Booking Details</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Meal Plan</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Remarks</th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">25-Sep-25</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Paro - Thimphu</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">
+                                Yarkay IHCL Selections<br>
+                                <span style="font-weight:bold;">(Contact No)</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7; line-height:1.6;">
+                                <span style="color:#000;">5 <strong>Superior Dbl</strong></span><br>
+                                <span style="color:#a22;">3 Deluxe Sgl</span><br>
+                                <span style="color:#007b3e;">1 Extra Bed</span><br>
+                                <span style="color:#007b3e;">2 CWB</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">MAP</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;"></td>
+                            </tr>
+
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">26-Sep-25</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Thimphu</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">
+                                Yarkay IHCL Selections<br>
+                                <span style="font-weight:bold;">(Contact No)</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7; line-height:1.6;">
+                                <span style="color:#000;">5 <strong>Superior Dbl</strong></span><br>
+                                <span style="color:#a22;">3 Deluxe Sgl</span><br>
+                                <span style="color:#007b3e;">1 Extra Bed</span><br>
+                                <span style="color:#007b3e;">2 CWB</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">MAP</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;"></td>
+                            </tr>
+
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">27-Sep-25</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Thimphu - Punakha</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">
+                                RKPO Green Resort<br>
+                                <span style="font-weight:bold;">(Contact No)</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7; line-height:1.6;">
+                                <span style="color:#000;">5 <strong>Superior Dbl</strong></span><br>
+                                <span style="color:#a22;">3 Deluxe Sgl</span><br>
+                                <span style="color:#007b3e;">1 Extra Bed</span><br>
+                                <span style="color:#007b3e;">2 CWB</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">MAP</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;"></td>
+                            </tr>
+
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">28-Sep-25</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Pkh - Gangtey - Pkh</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">
+                                RKPO Green Resort<br>
+                                <span style="font-weight:bold;">(Contact No)</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7; line-height:1.6;">
+                                <span style="color:#000;">5 <strong>Superior Dbl</strong></span><br>
+                                <span style="color:#a22;">3 Deluxe Sgl</span><br>
+                                <span style="color:#007b3e;">1 Extra Bed</span><br>
+                                <span style="color:#007b3e;">2 CWB</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">MAP</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;"></td>
+                            </tr>
+
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">29-Sep-25</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Punakha - Paro</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">
+                                Himalayan Forest Keys Resort<br>
+                                <span style="font-weight:bold;">(Contact No)</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7; line-height:1.6;">
+                                <span style="color:#000;">5 <strong>Superior Dbl</strong></span><br>
+                                <span style="color:#a22;">3 Deluxe Sgl</span><br>
+                                <span style="color:#007b3e;">1 Extra Bed</span><br>
+                                <span style="color:#007b3e;">2 CWB</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">MAP</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;"></td>
+                            </tr>
+
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">30-Sep-25</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Paro</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">
+                                Himalayan Forest Keys Resort<br>
+                                <span style="font-weight:bold;">(Contact No)</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7; line-height:1.6;">
+                                <span style="color:#000;">5 <strong>Superior Dbl</strong></span><br>
+                                <span style="color:#a22;">3 Deluxe Sgl</span><br>
+                                <span style="color:#007b3e;">1 Extra Bed</span><br>
+                                <span style="color:#007b3e;">2 CWB</span>
+                              </td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">MAP</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;"></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <!-- ===== TRANSPORT DETAILS (DISPLAY ONLY) ===== -->
+                    <div style="margin-top:30px; font-family:Inter, Arial, sans-serif;">
+                      <h3 style="color:#2e5939; font-size:18px; margin-bottom:8px;">
+                        IV.Transport & Guide Details
+                      </h3>
+
+                      <div style="overflow-x:auto;">
+                        <table style="width:100%; border-collapse:collapse; background:transparent; font-size:14px;">
+                          <thead>
+                            <tr style="background: transparent;color:#2e5939; text-align:left;">
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Vehicle Type</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Vehicle No.</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Driver Name</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Driver Contact</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Guide Name</th>
+                              <th style="padding:10px; border:1px solid #c5d6c7;">Guide Contact</th>
+                            </tr>
+                          </thead>
+
+                          <tbody id="transportTableBody">
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">SUV</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">BP-1-A2345</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Mr. Tashi Dorji</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">+975 17 123 456</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Mr. Sonam Jamtsho</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">+975 17 654 321</td>
+                            </tr>
+
+                            <tr>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Mini Bus</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">BP-2-B7890</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Mr. Karma Wangdi</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">+975 17 555 888</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">Ms. Dechen Dema</td>
+                              <td style="padding:8px; border:1px solid #c5d6c7;">+975 17 444 222</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!--=====ROOMING LIST===== -->
+              <div class="content-section" id="checklist"
+                style="display:none; font-family: 'Times New Roman', Times, serif;">
+                <h3 style="color:#2e5939; font-size:20px; margin-bottom:10px;">Rooming List</h3>
+
+                <div
+                  style="text-align:center; background:#d9ead3; font-weight:500; padding:6px 12px; border-radius:6px; margin-bottom:15px; color:#2e5939;">
+                  Rooming List for Hotel
+                </div>
+
+                <!-- Rooming Table -->
+                <table id="roomingListTable"
+                  style="width:100%; border-collapse:collapse; box-shadow:0 2px 6px rgba(0,0,0,0.05); border-radius:8px; overflow:hidden;">
+                  <tbody>
+                    <tr class="mainRow" style="background:#fff;">
+                      <td><input type="text" name="roomAlloc" placeholder="Allocation"
+                          style="width:95%; padding:6px; border:1px solid #ccc; border-radius:6px;"></td>
+                      <td><input type="text" name="roomNo" placeholder="Room No"
+                          style="width:95%; padding:6px; border:1px solid #ccc; border-radius:6px;"></td>
+
+                      <!-- Inner Guest Section -->
+                      <td colspan="7" style="padding:0;">
+                        <table class="guestInnerTable" style="width:100%; border-collapse:collapse;">
+                          <tbody>
+                            <tr>
+                              <td style="width:13%;"><input type="text" placeholder="Guest Name"
+                                  style="width:95%; padding:6px; border:1px solid #ccc; border-radius:6px;"></td>
+                              <td style="width:13%;"><input type="text" placeholder="Room Type"
+                                  style="width:95%; padding:6px; border:1px solid #ccc; border-radius:6px;"></td>
+                              <td style="width:13%;"><input type="text" placeholder="Room Category"
+                                  style="width:95%; padding:6px; border:1px solid #ccc; border-radius:6px;"></td>
+                              <td style="width:13%;"><input type="text" placeholder="Meal Plan"
+                                  style="width:95%; padding:6px; border:1px solid #ccc; border-radius:6px;"></td>
+                              <td style="width:13%;"><input type="text" placeholder="Remarks"
+                                  style="width:95%; padding:6px; border:1px solid #ccc; border-radius:6px;"></td>
+                              <td style="width:3%; text-align:center;">
+                                <button type="button" class="addInnerRowBtn" title="Add Guest"
+                                  style="border:none; background:none; font-size:18px; color:#2e5939; cursor:pointer;">+</button>
+                              </td>
+                              <td style="width:3%; text-align:center;">
+                                <button type="button" class="removeInnerRowBtn" title="Remove Guest"
+                                  style="border:none; background:none; font-size:18px; color:#a94442; cursor:pointer;">−</button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td style="text-align:center;">
+                        <button type="button" class="addMainRowBtn" title="Add Room"
+                          style="border:none; background:none; font-size:16px; color:#2e5939; cursor:pointer;">+</button>
+                      </td>
+                      <td style="text-align:center;">
+                        <button type="button" class="removeMainRowBtn" title="Remove Room"
+                          style="border:none; background:none; font-size:18px; color:#a94442; cursor:pointer;">−</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- Guide DSA -->
+              <div class="content-section" id="guide" style="display:none;">
+                <h3 style="color:#2e5939;">Guide List</h3>
+              </div>
+              <!-- Vehicle Hire Form -->
+              <div class="content-section" id="vehicle" style="display:none;">
+                <h3 style="color:#2e5939;">Vehicle Hire Form</h3>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div id="notesForm" class="tab-content">
+          <h2>Refund/cancellation</h2>
+          <p>go here.</p>
+        </div>
+      </section>
+      <script src="app.js"></script>
+      <script src="user.js"></script>
+      <script src="hotel.js"></script>
+      <script src="groupchart.js"></script>
+      <script src="guide.js"></script>
+      <script src="vehicle.js"></script>
+      <script src="Expense.js"></script>
+      <script src="server.js"></script>
+      <script src="Express.js"></script>
+</body>
+
+</html>

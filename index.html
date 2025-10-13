@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Office Management System</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(-45deg, #8EC5FC, #E0C3FC, #F9F9F9, #a1c4fd);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    /* ===== Card ===== */
+    .container {
+      width: 350px;
+      height: 450px;
+      perspective: 1000px;
+    }
+
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+    }
+
+    .form-box {
+      position: absolute;
+      width: 100%;
+      height: 80%;
+      background: #E3E8D8;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      padding: 40px 30px;
+      backface-visibility: hidden;
+    }
+
+    .form-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #333;
+    }
+
+    .input-box {
+      position: relative;
+      margin: 20px 0;
+    }
+
+    .input-box input {
+      width: 100%;
+      padding: 12px 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    .input-box input:focus {
+      border-color: #6a5acd;
+      box-shadow: 0 0 6px rgba(106, 90, 205, 0.5);
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      background: #537C36;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #537C36;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 14px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+      display: none;
+    }
+
+    h2 {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin: 20px auto;
+      width: fit-content;
+
+      background: linear-gradient(90deg, #537C36, #8dff3b, #537C36);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      line-height: 1.2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="form-box form-front">
+        <h2>IDEAL-MSD</h2>
+        <form id="loginForm">
+          <div class="input-box">
+            <input type="text" id="username" placeholder="Username" required>
+            <div class="error-msg" id="usernameError">Username required</div>
+          </div>
+          <div class="input-box">
+            <input type="password" id="password" placeholder="Password" required>
+            <div class="error-msg" id="passwordError">Password required</div>
+          </div>
+          <div class="error-msg" id="loginError">Invalid username or password</div>
+          <button type="submit" class="btn">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const loginForm = document.getElementById("loginForm");
+      const usernameInput = document.getElementById("username");
+      const passwordInput = document.getElementById("password");
+      const usernameError = document.getElementById("usernameError");
+      const passwordError = document.getElementById("passwordError");
+      const loginError = document.getElementById("loginError");
+
+      const API_BASE_URL = "http://localhost:3000/api";
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        usernameError.style.display = "none";
+        passwordError.style.display = "none";
+        loginError.style.display = "none";
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!username) {
+          usernameError.style.display = "block";
+          return;
+        }
+        if (!password) {
+          passwordError.style.display = "block";
+          return;
+        }
+
+        try {
+          const response = await fetch(`${API_BASE_URL}/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.message || "Login failed");
+          }
+
+          localStorage.setItem("loggedInUser", JSON.stringify(result.user));
+          alert("Login successful!");
+          window.location.href = "landing.html";
+        } catch (error) {
+          loginError.textContent = error.message;
+          loginError.style.display = "block";
+        }
+      });
+    });
+
+  </script>
+</body>
+
+</html>

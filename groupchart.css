@@ -1,0 +1,769 @@
+/* ==============================
+   GLOBAL BOX-SIZING & FONTS
+============================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==============================
+   GROUP CHART SECTION
+============================== */
+#groupchartSection {
+  padding: 20px;
+  background: #f9fafc;
+}
+
+/* ===== Header Text ===== */
+.welcome-text h2 {
+  font-size: 20px;
+  color: #000;
+}
+.welcome-text p {
+  font-size: 14px;
+  color: #000;
+  margin-top: 2px;
+}
+.header-right h3 {
+  font-size: 20px;
+  color: #000;
+}
+.header-right p {
+  font-size: 14px;
+  color: #000;
+  margin-top: 2px;
+}
+
+hr {
+  margin: 15px 0;
+  border: 1px solid #e5e5e5;
+}
+
+/* ==============================
+   CONTROLS (SEARCH + ADD BUTTON)
+============================== */
+.filegroup-controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+}
+
+.search-box input {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 220px;
+}
+
+.btn-primary {
+  background: #537C36;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+.btn-primary:hover {
+  background: #537C36;
+}
+
+/* ==============================
+   FORM SECTIONS
+============================== */
+.filegroup-form {
+  background: #fff;
+  border: 1px solid #e5e5e5;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+/* Top Fields (4 in one line) */
+.form-topfields {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.form-group2 label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #444;
+}
+
+.form-group2 input {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+/* Middle Fields (Cards for Pax / Arrival / Departure) */
+.form-middlefields {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: stretch;
+  margin-bottom: 20px;
+}
+
+.card,
+.card1 {
+  flex: 1;
+  background: #fafafa;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 200px;
+}
+
+.card-header {
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Uniform Table for Pax, Arrival, Departure */
+.uniform-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  text-align: center;
+}
+
+.uniform-table th,
+.uniform-table td {
+  border: transparent;
+  padding: 4px 6px;
+}
+
+.uniform-table th {
+  background: #f1f1f1;
+  font-weight: 600;
+}
+
+.uniform-table td:first-child {
+  text-align: left;
+}
+
+/* ==============================
+   SCROLLABLE TABLE WITH STICKY COLUMNS
+============================== */
+.fixed-form-wrapper {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  padding: 12px 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Individual Form Sections ===== */
+.form-section {
+  margin-bottom: 12px;
+}
+
+/* ===== Scrollable Table Wrapper ===== */
+.table-scroll-wrapper {
+  max-height: 400px;
+  overflow: auto;
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+}
+
+/* ===== Table Container ===== */
+.table-container5 {
+  width: 100%;
+  overflow-x: auto;
+  position: relative;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ===== Table Styling ===== */
+.styled-table5 {
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  min-width: 1200px;
+  width: 100%;
+}
+
+.styled-table5 th,
+.styled-table5 td {
+  padding: 8px 12px;
+  border: 1px solid #333;
+  text-align: center;
+  white-space: nowrap;
+  background: #fff;
+}
+
+/* ===== Sticky Header Rows ===== */
+.styled-table5 thead tr:nth-child(1) th {
+  position: sticky;
+  top: 0;
+  background: #537C36;
+  font-weight: bold;
+  z-index: 5;
+}
+
+.styled-table5 thead tr:nth-child(2) th {
+  position: sticky;
+  top: 36px;
+  background: #a5d6a7;
+  z-index: 4;
+}
+
+/* ===== Sticky First Columns ===== */
+.styled-table5 th:nth-child(1),
+.styled-table5 td:nth-child(1) {
+  position: sticky;
+  left: 0;
+  background: #e8f5e9;
+  min-width: 80px;
+  z-index: 3;
+  box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table5 th:nth-child(2),
+.styled-table5 td:nth-child(2) {
+  position: sticky;
+  left: 80px;
+  background: #e8f5e9;
+  min-width: 140px;
+  z-index: 3;
+  box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+}
+
+.styled-table5 th:nth-child(3),
+.styled-table5 td:nth-child(3) {
+  position: sticky;
+  left: 220px;
+  background: #e8f5e9;
+  min-width: 180px;
+  z-index: 3;
+  box-shadow: 2px 0 5px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Sticky Last Column ===== */
+.styled-table5 th:last-child,
+.styled-table5 td:last-child {
+  position: sticky;
+  right: 0;
+  background: #f1f8e9;
+  z-index: 3;
+  box-shadow: -2px 0 5px -2px rgba(0, 0, 0, 0.1);
+}
+
+/* ==============================
+   TABS FOR SERVICE INCLUSION
+============================== */
+.form-actions2 {
+  display: flex;
+  border-bottom: 2px solid #ccc;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 20px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size: 16px;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.tab-button.active {
+  border-bottom: 3px solid #0077cc;
+  font-weight: bold;
+  color: #0077cc;
+}
+
+.tab-content {
+  display: none;
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/*ADD BUTTON FOR NEW GROUP*/
+.addgroupbht {
+  background-color: #537C36;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px 0;
+  display: inline-block;
+}
+
+/*=====ITNEARY SECTION UNDER GROUP CHART====*/
+.itinerary-section {
+  margin: 20px 0;
+  padding: 15px;
+  border-radius: 8px;
+  background: #537C36;
+}
+.date-inputs {
+  margin-bottom: 10px;
+}
+.date-inputs label {
+  margin-right: 15px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid #999;
+  padding: 6px;
+  text-align: center;
+}
+th {
+  background: #cfe2f3;
+}
+td input {
+  width: 95%;
+  padding: 4px;
+}
+.itinerary-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+button[onclick="generateItinerary()"] {
+  background-color: #537C36;
+  color: #fff;
+  padding: 10px 20px;
+  font-weight: bold;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+/*=========GUIDE DETAILS UNDER GROUP CHART========*/
+.guide-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.guide-header h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.add-btn {
+  background-color: #537C36;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  padding: 6px 14px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #537C36;
+}
+
+/* ===== Guide Form Layout ===== */
+.guide-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 100%;
+}
+
+/* ===== Guide Entry Row ===== */
+.guide-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===== Input Fields ===== */
+.guide-entry input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+.sl-input {
+  width: 40px;
+  text-align: center;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-2 {
+  flex: 2;
+}
+
+/* ===== Date Inputs (Reduced Width) ===== */
+.date-input {
+  flex: 1;
+  max-width: 120px;
+}
+
+/* ===== Action Buttons ===== */
+.action-btn {
+  background-color: #537C36;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.action-btn:hover {
+  background-color: #537C36;
+}
+
+/* ===== Remove Button ===== */
+.remove-btn {
+  background-color: #537C36;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 6px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn:hover {
+  background-color: #537C36;
+}
+
+
+.add-btn {
+  background: #537C36;
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 35px;
+}
+
+/* ===== Hotel Form Container of Group Chart ===== */
+#hotelForm5 {
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  font-family: "Arial", sans-serif;
+}
+
+/* ===== Scrollable Table Wrapper ===== */
+.table-wrapper7 {
+  width: 100%;
+  max-height: 400px;
+  overflow: auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  padding: 8px;
+}
+
+/* ===== Table Base Styling ===== */
+#hotelDetailsTable5 {
+  width: 85%;
+  min-width: 1600px;
+  border-collapse: collapse;
+}
+/* ===== Specific width reduction for No of Nights ===== */
+#hotelDetailsTable5 input[name="nights"] {
+  width: 50% !important; 
+}
+
+/* ===== Table Header Styling ===== */
+#hotelDetailsTable5 thead th {
+  background-color: #537C36 ;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+/* ===== Table Body Styling ===== */
+#hotelDetailsTable5 tbody td {
+  border: 1px solid #ccc;
+  padding: 6px 8px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+}
+
+/* ===== Input and Select Styling (Reduced Width) ===== */
+#hotelDetailsTable5 input[type="text"],
+#hotelDetailsTable5 input[type="number"],
+#hotelDetailsTable5 input[type="date"],
+#hotelDetailsTable5 select {
+  width: 85%;
+  padding: 6px 8px;
+  border: 1px solid #3c64b4;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* ===== Special Select Styling ===== */
+#hotelDetailsTable5 select.blue {
+  border-color: #007bff;
+  background-color: #e7f1ff;
+  color: #007bff;
+  font-weight: bold;
+}
+
+#hotelDetailsTable5 select.red {
+  border-color: #dc3545;
+  background-color: #ffe7e7;
+  color: #dc3545;
+  font-weight: bold;
+}
+
+/* ===== Remarks + Buttons Inline Layout ===== */
+#hotelDetailsTable5 .remarks-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+#hotelDetailsTable5 .remarks-actions input[type="text"] {
+  flex: 1;
+}
+
+/* ===== Add/Remove Button Styling ===== */
+#hotelDetailsTable5 .remarks-actions button {
+  padding: 6px 10px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  background-color: #537C36;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#hotelDetailsTable5 .remarks-actions button:hover {
+  background-color: #537C36;
+}
+
+/*=========VEHICLE DETAILS UNDER GROUP CHART (v4)========*/
+.vech4-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.vech4-header p {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.add-btn-v4 {
+  background-color: #537C36;
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  padding: 6px 14px;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.add-btn-v4:hover {
+  background-color: #537C36;
+}
+
+/* ===== Vehicle Form Layout ===== */
+.vech4-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 100%;
+}
+
+/* ===== Vehicle Entry Row ===== */
+.vech4-entry {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ===== Input Fields ===== */
+.vech4-entry input {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+}
+
+.sl-input-v4 {
+  width: 40px;
+  text-align: center;
+}
+
+.flex-1-v4 {
+  flex: 1;
+}
+
+.flex-2-v4 {
+  flex: 2;
+}
+
+/* ===== Date Inputs (Reduced Width) ===== */
+.date-input-v4 {
+  flex: 1;
+  max-width: 120px;
+}
+
+/* ===== Rate Type Select ===== */
+.rate-type-v4 {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  background-color: #f9f9f9;
+  width: 84px;
+}
+
+/* ===== Action Buttons ===== */
+.action-btn-v4 {
+  background-color: #537C36;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.action-btn-v4:hover {
+  background-color: #537C36;
+}
+
+/* ===== Remove Button ===== */
+.remove-btn-v4 {
+  background-color: #537C36;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 6px 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.remove-btn-v4:hover {
+  background-color: #537C36;
+}
+/*===camcel Button==*/
+.cancel-btn8 {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-btn8:hover {
+  background-color: #d32f2f;
+}
+
+/* Save Button */
+.save-btn8 {
+  background-color: #537C36;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* ==============================
+   RESPONSIVE FIXES
+============================== */
+@media (max-width: 1200px) {
+  .form-topfields {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .form-middlefields {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-topfields {
+    grid-template-columns: 1fr;
+  }
+  .search-box input {
+    min-width: 100%;
+  }
+}
