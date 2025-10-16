@@ -25,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchHotel");
   const searchBtn = document.getElementById("searchHotelBtn");
   const tableBody = document.querySelector(".styled-table5 tbody");
-  const tableBody = document.querrySelector(".table-display")
 
   // ====== LOCAL STORAGE ======
   const STORAGE_KEY = "groupChartRecords";
@@ -918,4 +917,5 @@ function attachAutoCalculations() {
 attachAutoCalculations();
 document.querySelector('#permitForm .clone-row-btn')
   .addEventListener('click', autoCloneTravelerRows);
+
 
